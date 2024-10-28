@@ -70,7 +70,7 @@ table {
 
 th, td {
     padding: 12px;
-    text-align: center;
+    text-align: left;
 }
 td{
     font-size: 14px;
@@ -93,7 +93,7 @@ tbody>tr:nth-child(odd) {
     display: flex;
     align-items: center;
     gap: 2px;
-    justify-content: center;
+    justify-content: left;
 }
 @media (max-width: 600px) {
     header {
