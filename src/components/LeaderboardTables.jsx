@@ -1,27 +1,12 @@
 import React from 'react';
 
-// Sample data for leaderboard, replace with sorted db data after firebase implementation
-const leaderboardData = [
-    { name: "Alice", team: "Technical" },
-    { name: "Bob", team: "Technical" },
-    { name: "Charlie", team: "Technical" },
-    { name: "Dave", team: "Technical" },
-    { name: "Eve", team: "Technical" },
-    { name: "Frank", team: "Technical" },
-    { name: "Grace", team: "Technical" },
-    { name: "Heidi", team: "Technical" },
-    { name: "Ivan", team: "Technical" },
-    { name: "Judy", team: "Technical" },
-];
-
-
 const trophyImages = [
     '/images/gold.png',
     '/images/silver.png',
     '/images/bronze.png'
 ];
 
-const LeaderboardTables = () => {
+const LeaderboardTables = ({ leaderboardData }) => {
     return (
         <div className="min-h-screen flex justify-center items-center">
             <div className="overflow-x-auto w-3/4 px-4 py-8">
