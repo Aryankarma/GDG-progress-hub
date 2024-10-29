@@ -2,7 +2,7 @@ import React from 'react';
 
 const TopMember_Images = ({ leaderboardData }) => {
     return (
-        <div className="flex justify-around items-center text-center mx-auto pt-20 relative w-[80%] ">
+        <div className="flex justify-around items-center text-center mx-auto my-[-1.5rem] pt-20 relative w-[80%] ">
             {/* Image Item 2 */}
             <div className="flex flex-col items-center">
                 <img
