@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import UserDashBoard from "./pages/userDashBoard";
-import AdmindashBoard from "./pages/admindashBoard";
+import AdmindashBoard from "./pages/adminDashBoard";
 import Login from "./auth/login";
 export default function App() {
   return (
