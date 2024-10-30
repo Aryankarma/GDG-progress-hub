@@ -148,7 +148,7 @@ const AdmindashBoard = () => {
           <table className="text-center w-full bg-white my-4">
             <thead>
               <tr className="text-gray-700 font-semibold">
-                <th className="p-4 text-center ">Rank</th>
+                <th className="p-4 text-center">Rank</th>
                 <th className="text-center">Member Name</th>
                 <th className="text-center">Current Score</th>
                 <th className="text-center">Update Score (Limit 0-10)</th>
@@ -185,7 +185,7 @@ const AdmindashBoard = () => {
         </div>
         <div>
           {/* save button */}
-          <button onClick={saveScores} className="bg-[rgb(98,77,227)] bg-gradient-to-r from-[rgba(98,77,227,1)] to-[rgba(54,42,125,1)] text-white rounded-lg text-[10px] sm:text-[14px] py-[8px] px-[12px] sm:py-[10px] sm:px-[16px] font-bold">
+          <button onClick={saveScores} className="bg-[rgb(98,77,227)] bg-gradient-to-r from-[rgba(98,77,227,1)] to-[rgba(54,42,125,1)] text-white rounded-lg text-[12px] sm:text-[14px] py-[8px] px-[12px] sm:py-[10px] sm:px-[16px] font-bold mb-3">
             Save
           </button>
         </div>
