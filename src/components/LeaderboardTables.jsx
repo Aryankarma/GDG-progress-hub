@@ -9,7 +9,7 @@ const trophyImages = [
 const LeaderboardTables = ({ leaderboardData }) => {
     return (
         <div className="min-h-screen flex justify-center items-center">
-            <div className="overflow-x-auto w-3/4 px-4 py-8">
+            <div className="overflow-x-auto sm:w-3/4 w-full px-4 py-8">
                 <table className="w-full text-left border-collapse">
                     <thead className="bg-gray-200 sticky top-0 z-10 text-black">
                         <tr>

@@ -1,9 +1,9 @@
 import React from "react";
 import LeaderboardTables from "../components/LeaderboardTables";
 import TopMember_Images from "../components/TopMember_Images";
-import Leaderboard_Nav_drop_Btn from "../components/Leaderboard_Nav_drop_Btn";
+import Leaderboard_drop_Btn from "../components/Leaderboard_drop_Btn";
+import Leaderboard_nav_heading from "../components/Leaderboard_nav_heading";
 
-// Sample data for leaderboard, replace with sorted db data after firebase implementation
 const leaderboardData = [
     { name: "Alice", team: "Technical" },
     { name: "Bob", team: "Technical" },
@@ -19,10 +19,9 @@ const leaderboardData = [
 
 function LeaderboardPage() {
     return <div>
-        <Leaderboard_Nav_drop_Btn />
-        {/* pass db images and name data to below component*/}
+        <Leaderboard_nav_heading />
+        <Leaderboard_drop_Btn />
         <TopMember_Images {...{ leaderboardData }} />
-        {/* pass db sorted data to below component */}
         <LeaderboardTables {...{ leaderboardData }} />
     </div>;
 }
