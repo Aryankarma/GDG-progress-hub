@@ -1,5 +1,7 @@
 import React from 'react';
 
+const teams = ["Technical", "Content Creation", "Graphics", "Sponsorship", "Event Management"]
+
 const Leaderboard_drop_Btn = () => {
     return (
         <div className="w-full">
@@ -7,11 +9,9 @@ const Leaderboard_drop_Btn = () => {
                 <div className="flex items-center p-5">
                     <span className="sm:text-xl text-[0.8rem] px-1">Select team:</span>
                     <select className="font-bold rounded-lg border border-gray-300 sm:p-2 p-[3px] w-28 sm:w-44 cursor-pointer text-xs sm:text-[15px]">
-                        <option value="technical">Technical</option>
-                        <option value="content_creation">Content Creation</option>
-                        <option value="graphics">Graphics</option>
-                        <option value="sponsorship">Sponsorship</option>
-                        <option value="event_management">Event Management</option>
+                        {teams.map((oneTeam, index) => (
+                            <option key={index} value={oneTeam.toLowerCase()}>{oneTeam}</option>
+                        ))}
                     </select>
                 </div>
                 <div className="group">
