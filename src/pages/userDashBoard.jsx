@@ -4,8 +4,12 @@ import "../styles/userDashBoard.css"
 import user1 from "../assets/1.png"
 import user2 from "../assets/2.png"
 import user3 from "../assets/3.png"
+import { Link } from "react-router-dom";
 
 export default function UserDashBoard() {
+
+
+
   return (
     <>
       <Navbar />
@@ -17,7 +21,8 @@ export default function UserDashBoard() {
               <option value="Technical">Technical</option>
             </select>
           </div>
-          <button className="admin-button">Admin Portal</button>
+          <Link to={"/admin"}> <button className="admin-button">Admin Portal</button></Link>
+         
         </div>
         <div className="top-three">
           <div>
