@@ -70,11 +70,12 @@ const AdmindashBoard = () => {
   const sortedMembers = members.sort((a, b) => a.rank - b.rank);
 
   return (
-    <div className="mx-5">
+    <div>
       {/* Main GDG Heading */}
       <Navbar/>
-
-      <div className="flex items-center justify-between">
+<div className="container">
+  
+<div className="flex items-center justify-between">
         {/* Select team field */}
         <div >
           <label className="text-lg font-semibold mr-2">Select team:</label>
@@ -126,6 +127,7 @@ const AdmindashBoard = () => {
           </tbody>
         </table>
       </div>
+</div>
     </div>
   );
 }
