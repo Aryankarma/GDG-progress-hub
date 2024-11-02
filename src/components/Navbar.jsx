@@ -5,7 +5,7 @@ export default function Navbar() {
     <>
       <header className="navbar">
         <img src="./logo.png" alt="Google Developer Logo" />
-        <h3>Google Developer Leaderboard</h3>
+        <h3>Google Progress Hub</h3>
       </header>
     </>
   );

@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../firebaseconfig";
 import { collection, onSnapshot, updateDoc, doc } from "firebase/firestore";
-
+import { useTeam } from "../context/loginContext";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 
 const AdmindashBoard = () => {
   const navigate = useNavigate();
-  const [team, setTeam] = useState("GDG");
+  const { teamData, isLoggedIn, logout } = useTeam();
 
+  const [team, setTeam] = useState("GDG");
+  useEffect(()=>{
+
+    console.log(teamData)
+  },[teamData])
   const goToUserDashBoard = () => {
     navigate("/");
   };
@@ -76,7 +81,7 @@ const AdmindashBoard = () => {
   const saveScores = () => {
     // useless method
   };
-
+  let i = 0;
   const sortedMembers = [
     {
       id: 1,
@@ -151,7 +156,7 @@ const AdmindashBoard = () => {
             <tbody>
               {sortedMembers.map((member) => (
                 <tr
-                  key={member.id}
+                  key={++i}
                   className={member.rank % 2 === 0 ? "bg-white" : "F7F6FE"}
                 >
                   <td className="p-4 text-center">#{member.rank}</td>
