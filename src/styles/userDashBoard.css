@@ -133,3 +133,8 @@ tbody>tr:nth-child(odd) {
         flex-direction: column;
     }
 }
+@media (max-width: 424px) {
+    table, th, td {
+        font-size: 12px;
+    }
+}

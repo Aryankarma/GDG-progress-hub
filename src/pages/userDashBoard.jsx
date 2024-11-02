@@ -1,15 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import "../styles/userDashBoard.css"
-import user1 from "../assets/1.png"
-import user2 from "../assets/2.png"
-import user3 from "../assets/3.png"
+import "../styles/userDashBoard.css";
+import user1 from "../assets/1.png";
+import user2 from "../assets/2.png";
+import user3 from "../assets/3.png";
 import { Link } from "react-router-dom";
-
+import { fetchTeam } from "../services/FirebaseServices";
 export default function UserDashBoard() {
-
-
-
+  const [TeamMembers, setTeamMembers] = useState({});
+  const [TeamMembersByTeamName, setTeamMembersByTeamName] = useState([]);
+  const [SelectedTeam, setSelectedTeam] = useState("");
+  const [TeamNames, setTeamNames] = useState([]);
+  let rank = 0;
+  useEffect(() => {
+    fetchTeam().then((data) => {
+      if (data != null) {
+        setTeamMembers(data);
+        const teamNames = Object.keys(data.Teams);
+        setTeamNames(teamNames);
+      }
+    });
+  }, []);
+  useEffect(() => {
+    if (TeamNames.length) {
+      setSelectedTeam(TeamNames[0]);
+      ChangeTeam(TeamNames[0]);
+    }
+  }, [TeamNames]);
+  function ChangeTeam(team) {
+    const members = TeamMembers.Teams[team].members;
+    let SortedMembers = members.sort((a, b) => {
+      return (b.currentScore || 0) - (a.currentScore || 0);
+    });
+    setSelectedTeam(team)
+    setTeamMembersByTeamName(SortedMembers);
+  }
   return (
     <>
       <Navbar />
@@ -17,12 +42,24 @@ export default function UserDashBoard() {
         <div className="team-select">
           <div>
             <label htmlFor="team">Select team:</label>
-            <select id="team">
-              <option value="Technical">Technical</option>
+            <select id="team" onChange={(e) => ChangeTeam(e.target.value)}>
+              {TeamNames.length != 0 && TeamNames ? (
+                TeamNames.map((teamnames) => {
+                  return (
+                    <option key={teamnames} value={teamnames}>
+                      {teamnames}
+                    </option>
+                  );
+                })
+              ) : (
+                <option value="Technical">Please Wait</option>
+              )}
             </select>
           </div>
-          <Link to={"/admin"}> <button className="admin-button">Admin Portal</button></Link>
-         
+          <Link to={"/admin"}>
+            {" "}
+            <button className="admin-button">Admin Portal</button>
+          </Link>
         </div>
         <div className="top-three">
           <div>
@@ -47,42 +84,52 @@ export default function UserDashBoard() {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td className="aligntrophy">
-                <span className="trophy">🏆</span> #1
-              </td>
-              <td>Matt Dickerson</td>
-              <td>Technical</td>
-            </tr>
-            <tr>
-              <td className="aligntrophy">
-                <span className="trophy">🥈</span> #2
-              </td>
-              <td>Wiktoria</td>
-              <td>Technical</td>
-            </tr>
-            <tr>
-              <td className="aligntrophy">
-                <span className="trophy">🥉</span> #3
-              </td>
-              <td>Trixie Byrd</td>
-              <td>Technical</td>
-            </tr>
-            <tr>
-              <td>#4</td>
-              <td>Brad Mason</td>
-              <td>Technical</td>
-            </tr>
-            <tr>
-              <td>#5</td>
-              <td>Sanderson</td>
-              <td>Technical</td>
-            </tr>
-            <tr>
-              <td>#6</td>
-              <td>Jun Redfern</td>
-              <td>Technical</td>
-            </tr>
+            {TeamMembersByTeamName.length != 0 ? (
+              TeamMembersByTeamName.map((teams) => {
+                let keyss = Date.now() + rank
+                return (
+                  <tr key={keyss}>
+                    {++rank == 1 ? (
+                      <>
+                        <td className="aligntrophy">
+                          <span className="trophy">🏆</span> #{rank}
+                        </td>
+                        <td>{teams.name}</td>
+                        <td>{SelectedTeam}</td>
+                      </>
+                    ) : rank == 2 ? (
+                      <>
+                        <td className="aligntrophy">
+                          <span className="trophy">🥈</span> #{rank}
+                        </td>
+                        <td>{teams.name}</td>
+                        <td>{SelectedTeam}</td>
+                      </>
+                    ) : rank == 3 ? (
+                      <>
+                        <td className="aligntrophy">
+                          <span className="trophy">🥉</span> #{rank}
+                        </td>
+                        <td>{teams.name}</td>
+                        <td>{SelectedTeam}</td>
+                      </>
+                    ) : (
+                      <>
+                        <td>#{rank}</td>
+                        <td>{teams.name}</td>
+                        <td>{SelectedTeam}</td>
+                      </>
+                    )}
+                  </tr>
+                );
+              })
+            ) : (
+              <tr key={Date.now()}>
+                <td></td>
+                <td></td>
+                <td></td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
