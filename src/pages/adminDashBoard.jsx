@@ -8,72 +8,25 @@ import { useNavigate } from "react-router-dom";
 const AdmindashBoard = () => {
   const navigate = useNavigate();
   const { teamData, isLoggedIn, logout } = useTeam();
-
+  const [TeamMembers, setTeamMembers] = useState([]);
+  let rank = 0;
   const [team, setTeam] = useState("GDG");
   useEffect(()=>{
-
-    console.log(teamData)
-  },[teamData])
+    if(!isLoggedIn)
+      navigate('/login')
+  })
+  useEffect(() => {
+    if(!teamData)
+      return
+    let SortedMembers = teamData.members.sort((a, b) => {
+      return (b.currentScore || 0) - (a.currentScore || 0);
+    });
+    setTeamMembers(SortedMembers);
+    setTeam(teamData.name)
+  }, [teamData]);
   const goToUserDashBoard = () => {
     navigate("/");
   };
-
-  // const [members, setMembers] = useState([]);
-  // const [scores, setScores] = useState({});
-
-  // // ! Fetch members from Firebase with real-time updates
-  // useEffect(() => {
-  //   const membersCollection = collection(db, "members");
-  //   const unsubscribe = onSnapshot(membersCollection, (snapshot) => {
-  //     const membersList = snapshot.docs.map((doc) => ({
-  //       id: doc.id,
-  //       ...doc.data(),
-  //     }));
-  //     setMembers(membersList);
-  //   });
-
-  //   // !Cleanup subscription on unmount
-  //   return () => unsubscribe();
-  // }, []);
-
-  // //! Handle score input change
-  // const handleScoreChange = (id, score) => {
-  //   setScores((prevScores) => ({
-  //     ...prevScores,
-  //     [id]: score,
-  //   }));
-  // };
-
-  // //! Save updated scores and update ranks in Firebase
-  // const saveScores = async () => {
-  //   // !Update scores in Firebase
-  //   for (const [id, score] of Object.entries(scores)) {
-  //     const memberDoc = doc(db, "members", id);
-  //     await updateDoc(memberDoc, { score: parseInt(score) });
-  //   }
-
-  //   //!Update ranks based on new scores
-  //   const updatedMembers = members.map((member) => ({
-  //     ...member,
-  //     score:
-  //       scores[member.id] !== undefined
-  //         ? parseInt(scores[member.id])
-  //         : member.score,
-  //   }));
-
-  //   // !Sort updated members by score in descending order and assign ranks
-  //   updatedMembers.sort((a, b) => b.score - a.score);
-  //   for (let i = 0; i < updatedMembers.length; i++) {
-  //     const memberDoc = doc(db, "members", updatedMembers[i].id);
-  //     await updateDoc(memberDoc, { rank: i + 1 }); //! Assign rank based on sorted order
-  //   }
-
-  //   alert("Scores and ranks updated successfully!");
-  //   setScores({}); // !Clear the input fields after save
-  // };
-
-  // // !Sort members by rank before rendering
-  // const sortedMembers = members.sort((a, b) => a.rank - b.rank);
 
   const handleScoreChange = () => {
     // useless method
@@ -82,56 +35,15 @@ const AdmindashBoard = () => {
     // useless method
   };
   let i = 0;
-  const sortedMembers = [
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-    {
-      id: 1,
-      rank: 1,
-      name: "shamin",
-      cur_score: 15,
-    },
-  ];
 
   return (
     <div>
-      {/* Main GDG Heading */}
       <Navbar />
       <div className="container">
         <div className="flex items-center justify-between">
-          {/* Select team field */}
           <div>
             <h2 className="font-semibold">{team}</h2>
           </div>
-          {/* user portal button */}
           <div className="flex gap-2">
             <button
               onClick={goToUserDashBoard}
@@ -142,43 +54,117 @@ const AdmindashBoard = () => {
           </div>
         </div>
 
-        {/* The table */}
         <div className="overflow-x-auto">
           <table className="text-center w-full bg-white my-4">
             <thead>
               <tr className="text-gray-700 font-semibold">
-                <th className="p-4 text-center">Rank</th>
-                <th className="text-center">Member Name</th>
-                <th className="text-center">Current Score</th>
-                <th className="text-center">Update Score (Limit 0-10)</th>
+                <th className="p-4">Rank</th>
+                <th className="">Member Name</th>
+                <th className="">Current Score</th>
+                <th className="">Update Score (Limit 0-10)</th>
               </tr>
             </thead>
             <tbody>
-              {sortedMembers.map((member) => (
-                <tr
-                  key={++i}
-                  className={member.rank % 2 === 0 ? "bg-white" : "F7F6FE"}
-                >
-                  <td className="p-4 text-center">#{member.rank}</td>
-                  <td className="p-4 text-center">#{member.name}</td>
-                  <td className="text-center">{member.cur_score}</td>
-                  <td className="text-center">
-                    <input
-                      type="number"
-                      min="0"
-                      max="10"
-                      step="1"
-                      placeholder="Enter Score"
-                      required
-                      className="p-2 w-32 border border-gray-300 rounded-md"
-                      // value={scores[member.id] || ""}
-                      onChange={(e) =>
-                        handleScoreChange(member.id, e.target.value)
-                      }
-                    />
-                  </td>
-                </tr>
-              ))}
+              {TeamMembers.length != 0
+                ? TeamMembers.map((teams) => {
+                    let keyss = Date.now() + rank;
+                    return (
+                      <tr key={keyss}>
+                        {++rank == 1 ? (
+                          <>
+                            <td className="aligntrophy">
+                              <span className="trophy">🏆</span> #{rank}
+                            </td>
+                            <td>{teams.name}</td>
+                            <td>{teams.currentScore}</td>
+                            <td className="text-center">
+                              <input
+                                type="number"
+                                min="0"
+                                max="10"
+                                step="1"
+                                placeholder="Enter Score"
+                                required
+                                className="p-2 w-32 border border-gray-300 rounded-md"
+                                value={teams.currentScore}
+                                onChange={(e) =>
+                                  handleScoreChange(member.id, e.target.value)
+                                }
+                              />
+                            </td>
+                          </>
+                        ) : rank == 2 ? (
+                          <>
+                            <td className="aligntrophy">
+                              <span className="trophy">🥈</span> #{rank}
+                            </td>
+                            <td>{teams.name}</td>
+                            <td>{teams.currentScore}</td>
+                            <td className="text-center">
+                              <input
+                                type="number"
+                                min="0"
+                                max="10"
+                                step="1"
+                                placeholder="Enter Score"
+                                required
+                                className="p-2 w-32 border border-gray-300 rounded-md"
+                                value={teams.currentScore}
+                                onChange={(e) =>
+                                  handleScoreChange(member.id, e.target.value)
+                                }
+                              />
+                            </td>
+                          </>
+                        ) : rank == 3 ? (
+                          <>
+                            <td className="aligntrophy">
+                              <span className="trophy">🥉</span> #{rank}
+                            </td>
+                            <td>{teams.name}</td>
+                            <td>{teams.currentScore}</td>
+                            <td className="text-center">
+                              <input
+                                type="number"
+                                min="0"
+                                max="10"
+                                step="1"
+                                placeholder="Enter Score"
+                                required
+                                className="p-2 w-32 border border-gray-300 rounded-md"
+                                value={teams.currentScore}
+                                onChange={(e) =>
+                                  handleScoreChange(member.id, e.target.value)
+                                }
+                              />
+                            </td>
+                          </>
+                        ) : (
+                          <>
+                            <td>#{rank}</td>
+                            <td>{teams.name}</td>
+                            <td>{teams.currentScore}</td>
+                            <td className="text-center">
+                              <input
+                                type="number"
+                                min="0"
+                                max="10"
+                                step="1"
+                                placeholder="Enter Score"
+                                required
+                                className="p-2 w-32 border border-gray-300 rounded-md"
+                                value={teams.currentScore}
+                                onChange={(e) =>
+                                  handleScoreChange(member.id, e.target.value)
+                                }
+                              />
+                            </td>
+                          </>
+                        )}
+                      </tr>
+                    );
+                  })
+                : null}
             </tbody>
           </table>
         </div>
