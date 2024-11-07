@@ -3,9 +3,11 @@ import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import { firebaseLogin } from "../services/FirebaseServices";
 import { useTeam } from '../context/loginContext';
+
 export default function Login() {
   const { login } = useTeam();
   const navigate = useNavigate();
+
   async function handleLogin(e) {
     e.preventDefault()
     let form = e.target
@@ -16,26 +18,27 @@ export default function Login() {
       login(Login_status)
       navigate("/admin");
     }else{
-      //login failed
+      alert("Wrong Credentials")
     }
   }
+
   return (
     <div className="container h-screen flex items-center justify-center">
       <div className="login-box">
         <img src="./logo.png" alt="Google Developer Logo" />
 
-        <h1>Sign in</h1>
+        <h1 className="font-bold">Sign in</h1>
         <form onSubmit={handleLogin}>
           <select className="role-select" name="Team">
             <option value="">Select Team</option>
-            <option value="Technical">Technical</option>
-            <option value="Graphics">Graphics</option>
-            <option value="Social">Social Media Management</option>
-            <option value="Video">Video/Photograpgy</option>
-            <option value="Content">Content</option>
-            <option value="Sponsorship">Sponsorship Management</option>
-            <option value="Event">Event Management</option>
-            <option value="Community">Community</option>
+            <option value="Technical Team">Technical</option>
+            <option value="Graphics Team">Graphics</option>
+            <option value="Social Team">Social Media Management</option>
+            <option value="Video Team">Video/Photograpgy</option>
+            <option value="Content Team">Content</option>
+            <option value="Sponsorship Team">Sponsorship Management</option>
+            <option value="Event Team">Event Management</option>
+            <option value="Community Team">Community</option>
           </select>
 
           <input

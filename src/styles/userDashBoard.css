@@ -1,8 +1,9 @@
 .container {
-    max-width: 800px;
+    max-width: 1000px;
     width: 90%;
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
+    padding-top: 15vh;
 }
 
 .team-select {
@@ -13,14 +14,14 @@
 }
 .team-select  label {
     margin-right: 10px;
-    font-size: 12px;
+    min-width: fit-content;
     font-weight: 600;
 }
 .team-select select {
-    padding: 8px 16px;
+    padding: 8px;
     font-size: 14px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 4px;
     font-weight: bold;
     background: transparent;
 }
@@ -30,25 +31,27 @@
     align-items: center;
 }
 .admin-button {
-    background: rgb(98,77,227);
-    background: linear-gradient(90deg, rgba(98,77,227,1) 0%, rgba(54,42,125,1) 100%);
-    color: white;
-    padding: 10px 16px;
+    color: rgb(98,77,227);
+    padding: 8px 12px;
     border: none;
-    border-radius: 8px;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
 }
+.admin-button:hover{
+    text-decoration: underline;
+}
 
 .top-three {
     display: flex;
-    justify-content: space-around;
-    margin: 20px 0;
+    justify-content: space-evenly;
+    margin: 20px auto;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px 0;
     align-items: center;
+    width: 50vw;
 }
 
 .top-three div {
@@ -57,8 +60,14 @@
 }
 
 .top-three img {
-    width: 100%;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
+}
+
+.GoldMedalistImg img{
+    height: 120px !important;
+    width: 120px !important;
 }
 
 table {
@@ -66,6 +75,10 @@ table {
     margin-top: 20px;
     border-collapse: collapse;
     font-size: 16px;
+}
+
+.tableHeading{
+    border-radius: 10px;
 }
 
 th, td {
@@ -80,13 +93,7 @@ tbody>tr:nth-child(odd) {
     background-color: #F7F6FE;
 }
 .trophy {
-    font-size: 20px;
-}
-.top-three div img{
-    width: 100px;
-}
-.top-three div:nth-child(2) img{
-    width: 130px;
+    font-size: 18px;
 }
 .aligntrophy{
     display: flex;
@@ -98,6 +105,10 @@ tbody>tr:nth-child(odd) {
     header {
         font-size: 24px;
     }
+    .container{
+        padding-left: 0;
+        padding-right: 0;
+    }
     .navbar{
         flex-direction: column;
     }
@@ -108,19 +119,24 @@ tbody>tr:nth-child(odd) {
         align-items: end;
         gap: 10px;
     }
-    .container{
-        padding: 0;
-    }
-    /* .team-select select,
+    .team-select select,
     .admin-button {
         width: 100%;
-    } */
+    }
 
     table, th, td {
         font-size: 14px;
     }
+    .top-three{
+        width: 80vw;
+    }
     .top-three div img {
-        width: 65px;
+        width: 60px;
+        height: 60px;
+    }
+    .GoldMedalistImg img{
+        height: 80px !important;    
+        width: 80px !important;
     }
     .top-three p {
         font-size: 10px;

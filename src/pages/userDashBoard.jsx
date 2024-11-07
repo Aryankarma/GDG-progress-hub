@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/userDashBoard.css";
 import user1 from "../assets/1.png";
@@ -6,12 +6,14 @@ import user2 from "../assets/2.png";
 import user3 from "../assets/3.png";
 import { Link } from "react-router-dom";
 import { fetchTeam } from "../services/FirebaseServices";
+
 export default function UserDashBoard() {
   const [TeamMembers, setTeamMembers] = useState({});
   const [TeamMembersByTeamName, setTeamMembersByTeamName] = useState([]);
   const [SelectedTeam, setSelectedTeam] = useState("");
   const [TeamNames, setTeamNames] = useState([]);
-  let rank = 0;
+  let rank = 0;  
+
   useEffect(() => {
     fetchTeam().then((data) => {
       if (data != null) {
@@ -21,12 +23,14 @@ export default function UserDashBoard() {
       }
     });
   }, []);
+  
   useEffect(() => {
     if (TeamNames.length) {
       setSelectedTeam(TeamNames[0]);
       ChangeTeam(TeamNames[0]);
     }
   }, [TeamNames]);
+
   function ChangeTeam(team) {
     const members = TeamMembers.Teams[team].members;
     let SortedMembers = members.sort((a, b) => {
@@ -35,14 +39,15 @@ export default function UserDashBoard() {
     setSelectedTeam(team)
     setTeamMembersByTeamName(SortedMembers);
   }
+  
   return (
     <>
-      <Navbar />
+      <Navbar/>
       <div className="container">
         <div className="team-select">
           <div>
-            <label htmlFor="team">Select team:</label>
-            <select id="team" onChange={(e) => ChangeTeam(e.target.value)}>
+            {/* <label htmlFor="team">Team:</label> */}
+            <select className="w-min" id="team" onChange={(e) => ChangeTeam(e.target.value)}>
               {TeamNames.length != 0 && TeamNames ? (
                 TeamNames.map((teamnames) => {
                   return (
@@ -62,26 +67,26 @@ export default function UserDashBoard() {
           </Link>
         </div>
         <div className="top-three">
-          <div>
-            <img src={user1} alt="Wiktoria" />
-            <p>2. Wiktoria</p>
+          <div className="flex align-center flex-col">
+            <img className="mx-auto shadow-md" src={user1} alt="Wiktoria" />
+            <p><span className="trophy mx-auto">🥈</span>Wiktoria</p>
           </div>
-          <div>
-            <img src={user2} alt="Matt Dickerson" />
-            <p>1. Matt Dickerson</p>
+          <div className="flex align-center justify-center flex-col GoldMedalistImg">
+            <img className="mx-auto shadow-xl" src={user2} alt="Matt Dickerson" />
+            <p><span className="trophy mx-auto">🏆</span>Matt Dickerson</p>
           </div>
-          <div>
-            <img src={user3} alt="Trixie Byrd" />
-            <p>3. Trixie Byrd</p>
+          <div className="flex align-center justify-center flex-col">
+            <img className="mx-auto shadow-md" src={user3} alt="Trixie Byrd" />
+            <p><span className="trophy mx-auto">🥉</span>Trixie Byrd</p>
           </div>
         </div>
         <table>
           <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              <th>Team Name</th>
-            </tr>
+            <tr className="bg-slate-700 text-white tableHeading">
+              <th className="text-center">Rank</th>
+              <th className="text-center">Name</th>
+              <th className="text-center">Team Name</th>
+            </tr> 
           </thead>
           <tbody>
             {TeamMembersByTeamName.length != 0 ? (
@@ -92,32 +97,32 @@ export default function UserDashBoard() {
                     {++rank == 1 ? (
                       <>
                         <td className="aligntrophy">
-                          <span className="trophy">🏆</span> #{rank}
+                          <span className="trophy mx-auto">🏆</span>
                         </td>
-                        <td>{teams.name}</td>
-                        <td>{SelectedTeam}</td>
+                        <td className="text-center">{teams.name}</td>
+                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
                       </>
                     ) : rank == 2 ? (
                       <>
                         <td className="aligntrophy">
-                          <span className="trophy">🥈</span> #{rank}
+                          <span className="trophy mx-auto">🥈</span>
                         </td>
-                        <td>{teams.name}</td>
-                        <td>{SelectedTeam}</td>
+                        <td className="text-center mx-auto">{teams.name}</td>
+                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
                       </>
                     ) : rank == 3 ? (
                       <>
                         <td className="aligntrophy">
-                          <span className="trophy">🥉</span> #{rank}
+                          <span className="trophy mx-auto">🥉</span>
                         </td>
-                        <td>{teams.name}</td>
-                        <td>{SelectedTeam}</td>
+                        <td className="text-center">{teams.name}</td>
+                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
                       </>
                     ) : (
                       <>
-                        <td>#{rank}</td>
-                        <td>{teams.name}</td>
-                        <td>{SelectedTeam}</td>
+                        <td className="text-center">#{rank}</td>
+                        <td className="text-center">{teams.name}</td>
+                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
                       </>
                     )}
                   </tr>

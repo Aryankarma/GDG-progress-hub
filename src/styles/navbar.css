@@ -1,27 +1,25 @@
-.navbar {
+.myNavbar {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
+    flex-direction: row;
+    padding: 10px;
     font-size: 24px;
     color: #4a4a8f;
 }
 
-.navbar img {
+.myNavbar img {
     width: 60px;
 }
-.navbar h3{
+.myNavbar h3{
     font-size: 30px;
-    font-weight: bold;
+    font-weight: 700;
+    font-family: "Montserrat", sans-serif;
+    font-style: italic;
 }
+
 @media (max-width: 600px) {
-    header {
-        font-size: 24px;
-    }
-    .navbar{
-        flex-direction: column;
-    }
-    .navbar h3{
-        font-size: 16px;
+    .myNavbar h3{
+        font-size: 18px;
     }
 }
