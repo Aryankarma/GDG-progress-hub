@@ -3,7 +3,7 @@
     width: 90%;
     margin: 0 auto;
     padding: 20px;
-    padding-top: 15vh;
+    padding-top: 90px;
 }
 
 .team-select {
@@ -93,7 +93,7 @@ tbody>tr:nth-child(odd) {
     background-color: #F7F6FE;
 }
 .trophy {
-    font-size: 18px;
+    font-size: 16px;
 }
 .aligntrophy{
     display: flex;

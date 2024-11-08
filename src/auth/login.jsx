@@ -1,4 +1,3 @@
-import React from "react";
 import "../styles/login.css";
 import { useNavigate } from "react-router-dom";
 import { firebaseLogin } from "../services/FirebaseServices";

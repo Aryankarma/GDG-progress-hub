@@ -12,7 +12,7 @@ export default function UserDashBoard() {
   const [TeamMembersByTeamName, setTeamMembersByTeamName] = useState([]);
   const [SelectedTeam, setSelectedTeam] = useState("");
   const [TeamNames, setTeamNames] = useState([]);
-  let rank = 0;  
+  let rank = 0;
 
   useEffect(() => {
     fetchTeam().then((data) => {
@@ -23,7 +23,7 @@ export default function UserDashBoard() {
       }
     });
   }, []);
-  
+
   useEffect(() => {
     if (TeamNames.length) {
       setSelectedTeam(TeamNames[0]);
@@ -36,18 +36,24 @@ export default function UserDashBoard() {
     let SortedMembers = members.sort((a, b) => {
       return (b.currentScore || 0) - (a.currentScore || 0);
     });
-    setSelectedTeam(team)
+    setSelectedTeam(team);
     setTeamMembersByTeamName(SortedMembers);
   }
-  
+
+  const TopThree = TeamMembersByTeamName.slice(0, 3);
+
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className="container">
         <div className="team-select">
           <div>
             {/* <label htmlFor="team">Team:</label> */}
-            <select className="w-min" id="team" onChange={(e) => ChangeTeam(e.target.value)}>
+            <select
+              className="w-min"
+              id="team"
+              onChange={(e) => ChangeTeam(e.target.value)}
+            >
               {TeamNames.length != 0 && TeamNames ? (
                 TeamNames.map((teamnames) => {
                   return (
@@ -67,18 +73,45 @@ export default function UserDashBoard() {
           </Link>
         </div>
         <div className="top-three">
-          <div className="flex align-center flex-col">
-            <img className="mx-auto shadow-md" src={user1} alt="Wiktoria" />
-            <p><span className="trophy mx-auto">🥈</span>Wiktoria</p>
-          </div>
-          <div className="flex align-center justify-center flex-col GoldMedalistImg">
-            <img className="mx-auto shadow-xl" src={user2} alt="Matt Dickerson" />
-            <p><span className="trophy mx-auto">🏆</span>Matt Dickerson</p>
-          </div>
-          <div className="flex align-center justify-center flex-col">
-            <img className="mx-auto shadow-md" src={user3} alt="Trixie Byrd" />
-            <p><span className="trophy mx-auto">🥉</span>Trixie Byrd</p>
-          </div>
+          {TopThree && TopThree.length === 3 ? (
+            <>
+              <div className="flex align-center flex-col">
+                <img
+                  className="mx-auto shadow-md"
+                  src={user1}
+                  alt={TopThree[1].name}
+                />
+                <p>
+                  <span className="trophy mx-auto">🥈</span>
+                  {TopThree[1].name}
+                </p>
+              </div>
+              <div className="flex align-center justify-center flex-col GoldMedalistImg">
+                <img
+                  className="mx-auto shadow-xl"
+                  src={user2}
+                  alt={TopThree[0].name}
+                />
+                <p>
+                  <span className="trophy mx-auto">🏆</span>
+                  {TopThree[0].name}
+                </p>
+              </div>
+              <div className="flex align-center justify-center flex-col">
+                <img
+                  className="mx-auto shadow-md"
+                  src={user3}
+                  alt={TopThree[2].name}
+                />
+                <p>
+                  <span className="trophy mx-auto">🥉</span>
+                  {TopThree[2].name}
+                </p>
+              </div>
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
         </div>
         <table>
           <thead>
@@ -86,12 +119,12 @@ export default function UserDashBoard() {
               <th className="text-center">Rank</th>
               <th className="text-center">Name</th>
               <th className="text-center">Team Name</th>
-            </tr> 
+            </tr>
           </thead>
           <tbody>
             {TeamMembersByTeamName.length != 0 ? (
               TeamMembersByTeamName.map((teams) => {
-                let keyss = Date.now() + rank
+                let keyss = Date.now() + rank;
                 return (
                   <tr key={keyss}>
                     {++rank == 1 ? (
@@ -100,7 +133,9 @@ export default function UserDashBoard() {
                           <span className="trophy mx-auto">🏆</span>
                         </td>
                         <td className="text-center">{teams.name}</td>
-                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
+                        <td className="text-center">
+                          {SelectedTeam.split(" ").slice(0, -1).join(" ")}
+                        </td>
                       </>
                     ) : rank == 2 ? (
                       <>
@@ -108,7 +143,9 @@ export default function UserDashBoard() {
                           <span className="trophy mx-auto">🥈</span>
                         </td>
                         <td className="text-center mx-auto">{teams.name}</td>
-                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
+                        <td className="text-center">
+                          {SelectedTeam.split(" ").slice(0, -1).join(" ")}
+                        </td>
                       </>
                     ) : rank == 3 ? (
                       <>
@@ -116,13 +153,17 @@ export default function UserDashBoard() {
                           <span className="trophy mx-auto">🥉</span>
                         </td>
                         <td className="text-center">{teams.name}</td>
-                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
+                        <td className="text-center">
+                          {SelectedTeam.split(" ").slice(0, -1).join(" ")}
+                        </td>
                       </>
                     ) : (
                       <>
                         <td className="text-center">#{rank}</td>
                         <td className="text-center">{teams.name}</td>
-                        <td className="text-center">{SelectedTeam.split(' ').slice(0, -1).join(' ')}</td>
+                        <td className="text-center">
+                          {SelectedTeam.split(" ").slice(0, -1).join(" ")}
+                        </td>
                       </>
                     )}
                   </tr>

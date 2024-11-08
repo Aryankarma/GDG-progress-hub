@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { updateScores } from "../services/FirebaseServices";
 import { Link } from "react-router-dom";
 
-const AdmindashBoard2 = () => {
+const AdmindashBoard = () => {
   const navigate = useNavigate();
   const { teamData, isLoggedIn } = useTeam();
   const [teamMembers, setTeamMembers] = useState([]);
@@ -129,19 +129,19 @@ const AdmindashBoard2 = () => {
           </table>
         </div>
         <div>
-          <button
+          <buttonscoreUpdateStatus
             onClick={handleSaveScores}
-            className="hover:shadow-md transition bg-[rgb(98,77,227)] bg-gradient-to-r from-[rgba(98,77,227,1)] to-[rgba(54,42,125,1)] text-white rounded-lg text-[12px] sm:text-[14px] font-bold mb-3 py-2 px-8"
+            className="hover:shadow-md transition bg-[rgb(98,77,227)] bg-gradient-to-r from-[rgba(98,77,227,1)] to-[rgba(54,42,125,1)] text-white rounded text-[12px] sm:text-[14px] font-bold mb-3 py-2 px-12"
           >
             Save
-          </button>
+          </buttonscoreUpdateStatus>
         </div>
         {scoreUpdateStatus === true ? (
-            <div style={{boxShadow:"0 0 10px 10px #33ff3330"}} className="p-3 bg-green-900 text-white font-900 font-large shadow-2xl rounded-lg sticky w-1/2 mx-auto bottom-[5%] left-[5%]">
+            <div style={{boxShadow:"0 0 10px 5px #55ff5530"}} className="p-3 bg-green-800 text-white font-900 font-large shadow-2xl rounded-lg sticky mx-auto bottom-[5%] left-[5%]">
               {"✅ Score Successfully updated"}
             </div>
         ) : ( scoreUpdateStatus === false ? (
-          <div style={{boxShadow:"0 0 10px 5px #ff333350"}} className="p-3 bg-red-900 text-white font-900 font-large shadow-2xl rounded-lg sticky w-1/2 mx-auto bottom-[5%] left-[5%]">
+          <div style={{boxShadow:"0 0 10px 5px #ff333350"}} className="p-3 bg-red-900 text-white font-900 font-large shadow-2xl rounded-lg sticky  mx-auto bottom-[5%] left-[5%]">
             {"❌ Failed to update score"}
           </div>
         ) : null)}
@@ -150,4 +150,4 @@ const AdmindashBoard2 = () => {
   );
 };
 
-export default AdmindashBoard2;
+export default AdmindashBoard;
