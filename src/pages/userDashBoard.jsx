@@ -68,7 +68,7 @@ export default function UserDashBoard() {
             </select>
           </div>
           <Link to={"/admin"}>
-            {" "}
+            {" "}reh 
             <button className="admin-button">Admin Portal</button>
           </Link>
         </div>
@@ -78,7 +78,7 @@ export default function UserDashBoard() {
               <div className="flex align-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={user1}
+                  src={'../../public/dummy-profile-pic.png'}
                   alt={TopThree[1].name}
                 />
                 <p>
@@ -89,7 +89,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col GoldMedalistImg">
                 <img
                   className="mx-auto shadow-xl"
-                  src={user2}
+                  src={"../../public/dummy-profile-pic.png"}
                   alt={TopThree[0].name}
                 />
                 <p>
@@ -100,7 +100,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={user3}
+                  src={"../../public/dummy-profile-pic.png"}
                   alt={TopThree[2].name}
                 />
                 <p>
