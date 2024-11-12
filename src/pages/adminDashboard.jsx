@@ -129,12 +129,12 @@ const AdmindashBoard = () => {
           </table>
         </div>
         <div>
-          <buttonscoreUpdateStatus
+          <button
             onClick={handleSaveScores}
             className="hover:shadow-md transition bg-[rgb(98,77,227)] bg-gradient-to-r from-[rgba(98,77,227,1)] to-[rgba(54,42,125,1)] text-white rounded text-[12px] sm:text-[14px] font-bold mb-3 py-2 px-12"
           >
             Save
-          </buttonscoreUpdateStatus>
+          </button>
         </div>
         {scoreUpdateStatus === true ? (
             <div style={{boxShadow:"0 0 10px 5px #55ff5530"}} className="p-3 bg-green-800 text-white font-900 font-large shadow-2xl rounded-lg sticky mx-auto bottom-[5%] left-[5%]">
