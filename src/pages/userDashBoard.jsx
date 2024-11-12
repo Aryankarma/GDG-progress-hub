@@ -78,7 +78,7 @@ export default function UserDashBoard() {
               <div className="flex align-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={'../../public/dummy-profile-pic.png'}
+                  src="../assets/dummy-profile-pic.png"
                   alt={TopThree[1].name}
                 />
                 <p>
@@ -89,7 +89,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col GoldMedalistImg">
                 <img
                   className="mx-auto shadow-xl"
-                  src={"../../public/dummy-profile-pic.png"}
+                  src="../assets/dummy-profile-pic.png"
                   alt={TopThree[0].name}
                 />
                 <p>
@@ -100,7 +100,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={"../../public/dummy-profile-pic.png"}
+                  src="../assets/dummy-profile-pic.png"
                   alt={TopThree[2].name}
                 />
                 <p>
