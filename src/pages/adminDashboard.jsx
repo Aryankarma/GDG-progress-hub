@@ -27,10 +27,10 @@ const AdmindashBoard = () => {
   }, [teamData]);
 
   const handleScoreChange = (index, value) => {
-    if (value > 0 && value <= 10) {
+    if (value === "" || (value >= 0 && value <= 10)) {
       setScores((prevScores) => ({
         ...prevScores,
-        [index]: value,
+        [index]: value === "" ? undefined : value,
       }));
     }
   };
@@ -38,12 +38,12 @@ const AdmindashBoard = () => {
   const handleSaveScores = async () => {
     const allScoresValid = teamMembers.every((_, index) => {
       const score = scores[index];
-      return score && score > 0 && score <= 10;
+      return score && score >= 0 && score <= 10;
     });
 
     if (!allScoresValid) {
       alert(
-        "Please ensure all scores are between 1 and 10, and not left empty or zero."
+        "Please ensure all scores are between 0 and 10, and not left empty."
       );
       return;
     }
@@ -57,9 +57,9 @@ const AdmindashBoard = () => {
     });
     const updatedDataResponse = await updateScores(team, finalAddedScores);
     setScoreUpdateStatus(updatedDataResponse);
-    if(updatedDataResponse){
-      setTeamMembers(finalAddedScores)
-      setScores({})
+    if (updatedDataResponse) {
+      setTeamMembers(finalAddedScores);
+      setScores({});
     }
 
     // hide the notification after 3 seconds
@@ -77,9 +77,9 @@ const AdmindashBoard = () => {
             <h2 className="font-semibold">{team}</h2>
           </div>
           <div className="flex gap-2">
-          <Link to={"/"}>
-            <button className="admin-button">Home</button>
-          </Link>
+            <Link to={"/"}>
+              <button className="admin-button">Home</button>
+            </Link>
           </div>
         </div>
 
@@ -116,9 +116,7 @@ const AdmindashBoard = () => {
                       max={10}
                       placeholder="Enter Score"
                       value={scores[index] ?? ""}
-                      onChange={(e) =>
-                        handleScoreChange(index, parseInt(e.target.value) || 0)
-                      }
+                      onChange={(e) => handleScoreChange(index, e.target.value)}
                       required
                       className="p-2 w-32 border border-gray-300 rounded-md"
                     />
@@ -137,14 +135,20 @@ const AdmindashBoard = () => {
           </button>
         </div>
         {scoreUpdateStatus === true ? (
-            <div style={{boxShadow:"0 0 10px 5px #55ff5530"}} className="p-3 bg-green-800 text-white font-900 font-large shadow-2xl rounded-lg sticky mx-auto bottom-[5%] left-[5%]">
-              {"✅ Score Successfully updated"}
-            </div>
-        ) : ( scoreUpdateStatus === false ? (
-          <div style={{boxShadow:"0 0 10px 5px #ff333350"}} className="p-3 bg-red-900 text-white font-900 font-large shadow-2xl rounded-lg sticky  mx-auto bottom-[5%] left-[5%]">
+          <div
+            style={{ boxShadow: "0 0 10px 5px #55ff5530" }}
+            className="p-3 bg-green-800 text-white font-900 font-large shadow-2xl rounded-lg sticky mx-auto bottom-[5%] left-[5%]"
+          >
+            {"✅ Score Successfully updated"}
+          </div>
+        ) : scoreUpdateStatus === false ? (
+          <div
+            style={{ boxShadow: "0 0 10px 5px #ff333350" }}
+            className="p-3 bg-red-900 text-white font-900 font-large shadow-2xl rounded-lg sticky  mx-auto bottom-[5%] left-[5%]"
+          >
             {"❌ Failed to update score"}
           </div>
-        ) : null)}
+        ) : null}
       </div>
     </div>
   );
