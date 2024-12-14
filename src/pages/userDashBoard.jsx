@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/userDashBoard.css";
-import user1 from "../assets/1.png";
-import user2 from "../assets/2.png";
-import user3 from "../assets/3.png";
+import DummyImg from '../assets/dummy-pic.png'
 import { Link } from "react-router-dom";
 import { fetchTeam } from "../services/FirebaseServices";
 
@@ -78,7 +76,7 @@ export default function UserDashBoard() {
               <div className="flex align-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={user1}
+                  src={DummyImg}
                   alt={TopThree[1].name}
                 />
                 <p>
@@ -89,7 +87,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col GoldMedalistImg">
                 <img
                   className="mx-auto shadow-xl"
-                  src={user2}
+                  src={DummyImg}
                   alt={TopThree[0].name}
                 />
                 <p>
@@ -100,7 +98,7 @@ export default function UserDashBoard() {
               <div className="flex align-center justify-center flex-col">
                 <img
                   className="mx-auto shadow-md"
-                  src={user3}
+                  src={DummyImg}
                   alt={TopThree[2].name}
                 />
                 <p>
@@ -115,7 +113,7 @@ export default function UserDashBoard() {
         </div>
         <table>
           <thead>
-            <tr className="bg-slate-700 text-white tableHeading">
+            <tr className="bg-slate-500 dark:bg-slate-700 text-white tableHeading">
               <th className="text-center">Rank</th>
               <th className="text-center">Name</th>
               <th className="text-center">Team Name</th>
