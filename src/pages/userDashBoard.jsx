@@ -113,7 +113,7 @@ export default function UserDashBoard() {
         </div>
         <table>
           <thead>
-            <tr className="bg-slate-700 text-white tableHeading">
+            <tr className="bg-slate-500 dark:bg-slate-700 text-white tableHeading">
               <th className="text-center">Rank</th>
               <th className="text-center">Name</th>
               <th className="text-center">Team Name</th>

@@ -23,21 +23,21 @@ export default function Login() {
 
   return (
     <div className="container h-screen flex items-center justify-center">
-      <div className="login-box">
+      <div className="login-box bg-gray-700 dark:bg-gray-600">
         <img src="./logo.png" alt="Google Developer Logo" />
 
-        <h1 className="font-bold">Sign in</h1>
-        <form onSubmit={handleLogin}>
-          <select className="role-select" name="Team">
-            <option value="">Select Team</option>
-            <option value="Technical Team">Technical</option>
-            <option value="Graphics Team">Graphics</option>
-            <option value="Social Team">Social Media Management</option>
-            <option value="Video Team">Video/Photograpgy</option>
-            <option value="Content Team">Content</option>
-            <option value="Sponsorship Team">Sponsorship Management</option>
-            <option value="Event Team">Event Management</option>
-            <option value="Community Team">Community</option>
+        <h1 className="font-bold  text-black dark:text-white">Sign in</h1>
+        <form onSubmit={handleLogin} className="text-black dark:text-white">
+          <select className="role-select bg-white dark:bg-gray-600" name="Team">
+            <option value="" className="text-black dark:text-white">Select Team</option>
+            <option value="Technical Team" className="text-black dark:text-white">Technical</option>
+            <option value="Graphics Team" className="text-black dark:text-white">Graphics</option>
+            <option value="Social Team" className="text-black dark:text-white">Social Media Management</option>
+            <option value="Video Team" className="text-black dark:text-white">Video/Photograpgy</option>
+            <option value="Content Team" className="text-black dark:text-white">Content</option>
+            <option value="Sponsorship Team" className="text-black dark:text-white">Sponsorship Management</option>
+            <option value="Event Team" className="text-black dark:text-white">Event Management</option>
+            <option value="Community Team" className="text-black dark:text-white">Community</option>
           </select>
 
           <input
