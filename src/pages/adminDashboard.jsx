@@ -71,7 +71,7 @@ const AdmindashBoard = () => {
   return (
     <div>
       <Navbar />
-      <div className="container">
+      <div className="container text-foreground bg-background !pt-[70px]">
         <div className="flex items-center justify-between">
           <div>
             <h2 className="font-semibold">{team}</h2>
@@ -84,7 +84,7 @@ const AdmindashBoard = () => {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="text-center w-full bg-white my-4">
+          <table className="text-center w-full my-4">
             <thead>
               <tr className="bg-slate-700 text-white tableHeading">
                 <th className="p-4 text-center">Rank</th>

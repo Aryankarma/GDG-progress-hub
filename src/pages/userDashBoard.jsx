@@ -1,9 +1,23 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/userDashBoard.css";
-import DummyImg from '../assets/dummy-pic.png'
+import DummyImg from "../assets/dummy-pic.png";
 import { Link } from "react-router-dom";
 import { fetchTeam } from "../services/FirebaseServices";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "../components/ui/select";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableCell,
+} from "../components/ui/table";
 
 export default function UserDashBoard() {
   const [TeamMembers, setTeamMembers] = useState({});
@@ -12,9 +26,28 @@ export default function UserDashBoard() {
   const [TeamNames, setTeamNames] = useState([]);
   let rank = 0;
 
+  function Medalist({ rank, imgURL, name, medalEmoji, medalStyle }) {
+    const fallbackImg = imgURL && imgURL.trim() ? imgURL : DummyImg;
+    return (
+      <div
+        className={`flex align-center justify-center flex-col aspect-w-1 aspect-h-1`}
+      >
+        <img
+          className="mx-auto shadow-md pointer-events-none select-none"
+          src={fallbackImg}
+          alt={name || "Medalist"}
+        />
+        <p className="text-sm">
+          <span className="trophy mx-auto">{medalEmoji}</span>
+          {name || "Unknown"}
+        </p>
+      </div>
+    );
+  }
+
   useEffect(() => {
     fetchTeam().then((data) => {
-      if (data != null) {
+      if (data) {
         setTeamMembers(data);
         const teamNames = Object.keys(data.Teams);
         setTeamNames(teamNames);
@@ -24,158 +57,161 @@ export default function UserDashBoard() {
 
   useEffect(() => {
     if (TeamNames.length) {
-      setSelectedTeam(TeamNames[0]);
-      ChangeTeam(TeamNames[0]);
+      setSelectedTeam("Technical Team");
+      ChangeTeam("Technical Team");
     }
   }, [TeamNames]);
 
   function ChangeTeam(team) {
-    const members = TeamMembers.Teams[team].members;
-    let SortedMembers = members.sort((a, b) => {
-      return (b.currentScore || 0) - (a.currentScore || 0);
-    });
+    const members = TeamMembers.Teams[team]?.members || [];
+    const sortedMembers = [...members].sort(
+      (a, b) => (b.currentScore || 0) - (a.currentScore || 0)
+    );
     setSelectedTeam(team);
-    setTeamMembersByTeamName(SortedMembers);
+    setTeamMembersByTeamName(sortedMembers);
   }
 
   const TopThree = TeamMembersByTeamName.slice(0, 3);
+  console.log(TopThree);
 
   return (
     <>
       <Navbar />
-      <div className="container">
+      <div className="container text-foreground bg-background select-none">
+        <div className="top-three">
+          {TopThree.length === 3 ? (
+            <>
+              <Medalist
+                rank={2}
+                imgURL={TopThree[1].imgURL}
+                name={TopThree[1].name}
+                medalEmoji="🥈"
+              />
+              <Medalist
+                rank={1}
+                imgURL={TopThree[0].imgURL}
+                name={TopThree[0].name}
+                medalEmoji="🏆"
+                medalStyle="GoldMedalistImg"
+              />
+              <Medalist
+                rank={3}
+                imgURL={TopThree[2].imgURL}
+                name={TopThree[2].name}
+                medalEmoji="🥉"
+              />
+            </>
+          ) : (
+            <p>Loading...</p>
+          )}
+        </div>
+
         <div className="team-select">
           <div>
-            {/* <label htmlFor="team">Team:</label> */}
-            <select
-              className="w-min"
-              id="team"
-              onChange={(e) => ChangeTeam(e.target.value)}
-            >
-              {TeamNames.length != 0 && TeamNames ? (
-                TeamNames.map((teamnames) => {
-                  return (
-                    <option key={teamnames} value={teamnames}>
+            <Select onValueChange={(value) => ChangeTeam(value)}>
+              <SelectTrigger className="">
+                <SelectValue placeholder="Select a team" />
+              </SelectTrigger>
+              <SelectContent>
+                {TeamNames.length !== 0 ? (
+                  TeamNames.map((teamnames) => (
+                    <SelectItem key={teamnames} value={teamnames}>
                       {teamnames}
-                    </option>
-                  );
-                })
-              ) : (
-                <option value="Technical">Please Wait</option>
-              )}
-            </select>
+                    </SelectItem>
+                  ))
+                ) : (
+                  <SelectItem value="Technical" disabled>
+                    Please Wait
+                  </SelectItem>
+                )}
+              </SelectContent>
+            </Select>
           </div>
           <Link to={"/admin"}>
             {" "}
             <button className="admin-button">Admin Portal</button>
           </Link>
         </div>
-        <div className="top-three">
-          {TopThree && TopThree.length === 3 ? (
-            <>
-              <div className="flex align-center flex-col">
-                <img
-                  className="mx-auto shadow-md"
-                  src={DummyImg}
-                  alt={TopThree[1].name}
-                />
-                <p>
-                  <span className="trophy mx-auto">🥈</span>
-                  {TopThree[1].name}
-                </p>
-              </div>
-              <div className="flex align-center justify-center flex-col GoldMedalistImg">
-                <img
-                  className="mx-auto shadow-xl"
-                  src={DummyImg}
-                  alt={TopThree[0].name}
-                />
-                <p>
-                  <span className="trophy mx-auto">🏆</span>
-                  {TopThree[0].name}
-                </p>
-              </div>
-              <div className="flex align-center justify-center flex-col">
-                <img
-                  className="mx-auto shadow-md"
-                  src={DummyImg}
-                  alt={TopThree[2].name}
-                />
-                <p>
-                  <span className="trophy mx-auto">🥉</span>
-                  {TopThree[2].name}
-                </p>
-              </div> 
-            </>
-          ) : (
-            <p>Loading...</p>
-          )}
-        </div>
-        <table>
-          <thead>
-            <tr className="bg-slate-700 text-white tableHeading">
-              <th className="text-center">Rank</th>
-              <th className="text-center">Name</th>
-              <th className="text-center">Team Name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {TeamMembersByTeamName.length != 0 ? (
-              TeamMembersByTeamName.map((teams) => {
-                let keyss = Date.now() + rank;
+        <Table>
+          <TableHeader>
+            <TableRow className="bg-slate-700 text-white p-4 hover:bg-slate-700">
+              <TableCell className="text-center">Rank</TableCell>
+              <TableCell className="text-center">Name</TableCell>
+              <TableCell className="text-center">Team Name</TableCell>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {TeamMembersByTeamName.length !== 0 ? (
+              TeamMembersByTeamName.map((teams, index) => {
+                let keyss = Date.now() + index;
                 return (
-                  <tr key={keyss}>
-                    {++rank == 1 ? (
+                  <TableRow
+                    className={`odd:bg-[var(--old-table-row)] ${
+                      index === 0 ? "bg-yellow-100" : ""
+                    }`}
+                    key={keyss}
+                  >
+                    {index + 1 === 1 ? (
                       <>
-                        <td className="aligntrophy">
+                        <TableCell className="text-center">
                           <span className="trophy mx-auto">🏆</span>
-                        </td>
-                        <td className="text-center">{teams.name}</td>
-                        <td className="text-center">
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {teams.name}
+                        </TableCell>
+                        <TableCell className="text-center">
                           {SelectedTeam.split(" ").slice(0, -1).join(" ")}
-                        </td>
+                        </TableCell>
                       </>
-                    ) : rank == 2 ? (
+                    ) : index + 1 === 2 ? (
                       <>
-                        <td className="aligntrophy">
+                        <TableCell className="text-center">
                           <span className="trophy mx-auto">🥈</span>
-                        </td>
-                        <td className="text-center mx-auto">{teams.name}</td>
-                        <td className="text-center">
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {teams.name}
+                        </TableCell>
+                        <TableCell className="text-center">
                           {SelectedTeam.split(" ").slice(0, -1).join(" ")}
-                        </td>
+                        </TableCell>
                       </>
-                    ) : rank == 3 ? (
+                    ) : index + 1 === 3 ? (
                       <>
-                        <td className="aligntrophy">
+                        <TableCell className="text-center">
                           <span className="trophy mx-auto">🥉</span>
-                        </td>
-                        <td className="text-center">{teams.name}</td>
-                        <td className="text-center">
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {teams.name}
+                        </TableCell>
+                        <TableCell className="text-center">
                           {SelectedTeam.split(" ").slice(0, -1).join(" ")}
-                        </td>
+                        </TableCell>
                       </>
                     ) : (
                       <>
-                        <td className="text-center">#{rank}</td>
-                        <td className="text-center">{teams.name}</td>
-                        <td className="text-center">
+                        <TableCell className="text-center">
+                          #{index + 1}
+                        </TableCell>
+                        <TableCell className="text-center">
+                          {teams.name}
+                        </TableCell>
+                        <TableCell className="text-center">
                           {SelectedTeam.split(" ").slice(0, -1).join(" ")}
-                        </td>
+                        </TableCell>
                       </>
                     )}
-                  </tr>
+                  </TableRow>
                 );
               })
             ) : (
-              <tr key={Date.now()}>
-                <td></td>
-                <td></td>
-                <td></td>
-              </tr>
+              <TableRow>
+                <TableCell colSpan={3} className="text-center">
+                  No Data Available
+                </TableCell>
+              </TableRow>
             )}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </>
   );

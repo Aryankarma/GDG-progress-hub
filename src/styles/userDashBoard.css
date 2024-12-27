@@ -1,16 +1,16 @@
 .container {
     max-width: 1000px;
-    width: 90%;
+    width: 92.5%;
     margin: 0 auto;
     padding: 20px;
-    padding-top: 90px;
+    padding-top: 50px;
 }
 
 .team-select {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0;
+    margin: 5px 0;
 }
 .team-select  label {
     margin-right: 10px;
@@ -46,7 +46,8 @@
 .top-three {
     display: flex;
     justify-content: space-evenly;
-    margin: 20px auto;
+    margin: 22.5px auto;
+    margin-bottom: 0;
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px 0;
@@ -72,7 +73,7 @@
 
 table {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 10px;
     border-collapse: collapse;
     font-size: 16px;
 }
@@ -89,9 +90,9 @@ td{
     font-size: 14px;
     font-weight: 600;
 }
-tbody>tr:nth-child(odd) {
+/* tbody>tr:nth-child(odd) {
     background-color: #F7F6FE;
-}
+} */
 .trophy {
     font-size: 16px;
 }
@@ -143,6 +144,7 @@ tbody>tr:nth-child(odd) {
     }
     .top-three div:nth-child(2) img {
         width: 90px;
+        height: 90px;
     }
     .team-select>div {
         width: 120px;
