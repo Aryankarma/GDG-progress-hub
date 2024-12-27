@@ -105,7 +105,7 @@ export default function UserDashBoard() {
                   <span className="trophy mx-auto">🥉</span>
                   {TopThree[2].name}
                 </p>
-              </div>
+              </div> 
             </>
           ) : (
             <p>Loading...</p>
