@@ -70,9 +70,7 @@ export default function UserDashBoard() {
     setSelectedTeam(team);
     setTeamMembersByTeamName(sortedMembers);
   }
-
   const TopThree = TeamMembersByTeamName.slice(0, 3);
-  console.log(TopThree);
 
   return (
     <>
