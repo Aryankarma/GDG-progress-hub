@@ -46,11 +46,11 @@ export default function Login() {
               <SelectContent>
                 <SelectItem value="Technical Team">Technical</SelectItem>
                 <SelectItem value="Graphics Team">Graphics</SelectItem>
-                <SelectItem value="Social Team">Social Media Management</SelectItem>
-                <SelectItem value="Video Team">Video/Photography</SelectItem>
+                <SelectItem value="Social Media Team">Social Media</SelectItem>
+                <SelectItem value="Video/Photography Team">Video/Photography</SelectItem>
                 <SelectItem value="Content Team">Content</SelectItem>
                 <SelectItem value="Sponsorship Team">
-                  Sponsorship Management
+                  Sponsorship
                 </SelectItem>
                 <SelectItem value="Event Team">Event Management</SelectItem>
                 <SelectItem value="Community Team">Community</SelectItem>

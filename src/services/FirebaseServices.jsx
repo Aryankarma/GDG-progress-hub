@@ -23,7 +23,6 @@ export const firebaseLogin = async (teamName, password) => {
   }
 };
 
-
 export const fetchTeam = async () => {
   try {
     const teamQuery = query(collection(db, "main"));

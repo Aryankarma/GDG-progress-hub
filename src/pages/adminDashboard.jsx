@@ -68,6 +68,10 @@ const AdmindashBoard = () => {
     }, 3000);
   };
 
+  useEffect(()=>{
+    console.log(team)
+  },[team])
+
   return (
     <div>
       <Navbar />
