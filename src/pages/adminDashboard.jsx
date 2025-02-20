@@ -27,7 +27,8 @@ const AdmindashBoard = () => {
   }, [teamData]);
 
   const handleScoreChange = (index, value) => {
-    if (value === "" || (value >= 0 && value <= 10)) {
+    if (value === "" || value >= 0 && value <= 10) {
+      value = Number(value)
       setScores((prevScores) => ({
         ...prevScores,
         [index]: value === "" ? undefined : value,
@@ -52,9 +53,10 @@ const AdmindashBoard = () => {
       const userInputScore = scores[index] ?? 0;
       return {
         name: member.name,
-        currentScore: (member.currentScore || 0) + userInputScore,
+        currentScore: Number(member.currentScore || 0) + userInputScore,
       };
     });
+
     const updatedDataResponse = await updateScores(team, finalAddedScores);
     setScoreUpdateStatus(updatedDataResponse);
     if (updatedDataResponse) {

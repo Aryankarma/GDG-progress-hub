@@ -1,7 +1,6 @@
 import { db } from "../firebaseconfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { getDocs, collection, query } from "firebase/firestore";
-import { findAllInRenderedTree } from "react-dom/test-utils";
 
 export const firebaseLogin = async (teamName, password) => {
   try {
@@ -29,6 +28,7 @@ export const fetchTeam = async () => {
     const querySnapshot = await getDocs(teamQuery);
     if (!querySnapshot.empty) {
       const teamData = querySnapshot.docs[0].data();
+      console.log("teamData ", teamData)
       return teamData;
     } else {
       console.log("Team not found");
@@ -42,8 +42,7 @@ export const fetchTeam = async () => {
 
 
 export const updateScores = async (teamName, updatedMembers) => {
-  teamName = teamName + " Team"; // because DB has names like "Graphics Team"
-  
+  teamName = teamName + " Team" // because DB has names like "Graphics Team"
   try {
     const docRef = doc(db, "main", "data-2024");
     const docSnap = await getDoc(docRef);
@@ -52,8 +51,8 @@ export const updateScores = async (teamName, updatedMembers) => {
       const teamData = docSnap.data();
 
       if (teamData.Teams && teamData.Teams[teamName]) {
-        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
-        const lastUpdated = teamData.Teams[teamName].updatedAt;
+        const currentTime = Math.floor(Date.now() / 1000) // Current time in seconds
+        const lastUpdated = teamData.Teams[teamName].updatedAt
         const daysSinceLastUpdate = (currentTime - lastUpdated) / (60 * 60 * 24);
 
         const updateIntervalDays = 30
