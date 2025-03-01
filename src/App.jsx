@@ -4,6 +4,7 @@ import AdmindashBoard from "./pages/adminDashboard";
 import Login from "./auth/login";
 import { TeamProvider } from "./context/loginContext";
 import { ThemeProvider } from "./components/themeProvider";
+import SuperAdmin from "./pages/superadmin";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
             <Route exact path="/" element={<UserDashBoard />} />
             <Route exact path="/admin" element={<AdmindashBoard />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/superadmin" element={<SuperAdmin />} />
           </Routes>
         </Router>
       </ThemeProvider>

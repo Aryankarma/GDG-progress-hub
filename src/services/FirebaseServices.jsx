@@ -83,3 +83,18 @@ export const updateScores = async (teamName, updatedMembers) => {
     return false;
   }
 };
+
+
+
+export const fetchAllData = async () => {
+  try {
+    const allDataQuery = query(collection(db, "main"));
+    const querySnapshot = await getDocs(allDataQuery);
+    const allData = querySnapshot.docs.map(doc => doc.data());
+    console.log("All data: ", allData);
+    return allData;
+  } catch (error) {
+    console.error("Error fetching all data:", error);
+    throw new Error("Failed to fetch all data");
+  }
+};

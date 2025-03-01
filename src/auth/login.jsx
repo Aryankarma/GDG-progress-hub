@@ -8,6 +8,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../components/ui/select";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const { login } = useTeam();
@@ -28,7 +29,7 @@ export default function Login() {
   }
 
   return (
-    <div className="container h-screen flex items-center justify-center">
+    <div className="container h-screen flex flex-col items-center justify-center">
       <div className="login-box bg-card border text-foreground p-6 shadow-md rounded-lg w-96">
         <img
           className="mx-auto mb-6 w-24 h-24"
@@ -69,12 +70,13 @@ export default function Login() {
 
           <button
             type="submit"
-            className="w-full text-foreground hover:bg-accent bg-background font-semibold py-2 px-4 rounded-md hover:bg-primary-dark transition"
+            className="w-full text-foreground bg-accent hover:outline outline-1 font-semibold py-2 px-4 rounded-md hover:bg-primary-dark transition"
           >
             Sign in
           </button>
         </form>
       </div>
+      <Link className="text-primary hover:underline mt-3" to={"/superadmin"}>I'm the Super Admin</Link>
     </div>
   );
 }
