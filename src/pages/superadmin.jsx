@@ -34,7 +34,6 @@ const SuperAdmin = () => {
     const fetchData = async () => {
       const dbdata = await fetchAllData();
       if (dbdata[0]?.Teams) {
-        console.log(dbdata[0]?.Teams);
         const formattedData = Object.values(dbdata[0]?.Teams).map((team) => {
           const updatedDate = new Date(team.updatedAt * 1000);
           const updatedMonth = format(updatedDate, "MMMM yyyy");
@@ -58,15 +57,10 @@ const SuperAdmin = () => {
   }, []);
 
   // sorting the data by month
-  useEffect(() => {
-    const sortedData = [...teamdata].sort((a, b) => {
-      const dateA = new Date(a.updatedMonth);
-      const dateB = new Date(b.updatedMonth);
-      return dateB - dateA;
-    });
-    setTeamdata(sortedData);
-    console.log(sortedData);
-  }, [teamdata]);
+  const sortedData = [...teamdata].sort((a, b) => {
+    return new Date(b.updatedMonth) - new Date(a.updatedMonth);
+  });
+  
 
   return loginStatus ? (
     <div>
@@ -92,8 +86,8 @@ const SuperAdmin = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {teamdata.length > 0 ? (
-                teamdata.map((team, index) => (
+              {sortedData.length > 0 ? (
+                sortedData.map((team, index) => (
                   <TableRow key={index} className="border-b text-center">
                     <TableCell className="font-medium text-center">{team.name}</TableCell>
                     <TableCell className="text-center">{team.updatedMonth}</TableCell>

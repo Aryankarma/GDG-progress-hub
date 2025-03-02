@@ -28,7 +28,6 @@ export const fetchTeam = async () => {
     const querySnapshot = await getDocs(teamQuery);
     if (!querySnapshot.empty) {
       const teamData = querySnapshot.docs[0].data();
-      console.log("teamData ", teamData)
       return teamData;
     } else {
       console.log("Team not found");
@@ -91,7 +90,6 @@ export const fetchAllData = async () => {
     const allDataQuery = query(collection(db, "main"));
     const querySnapshot = await getDocs(allDataQuery);
     const allData = querySnapshot.docs.map(doc => doc.data());
-    console.log("All data: ", allData);
     return allData;
   } catch (error) {
     console.error("Error fetching all data:", error);
