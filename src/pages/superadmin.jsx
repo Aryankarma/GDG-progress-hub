@@ -53,9 +53,20 @@ const SuperAdmin = () => {
         setTeamdata(formattedData);
       }
     };
-
+    
     fetchData();
   }, []);
+
+  // sorting the data by month
+  useEffect(() => {
+    const sortedData = [...teamdata].sort((a, b) => {
+      const dateA = new Date(a.updatedMonth);
+      const dateB = new Date(b.updatedMonth);
+      return dateB - dateA;
+    });
+    setTeamdata(sortedData);
+    console.log(sortedData);
+  }, [teamdata]);
 
   return loginStatus ? (
     <div>
