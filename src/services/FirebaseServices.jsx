@@ -39,9 +39,9 @@ export const fetchTeam = async () => {
   }
 };
 
-
 export const updateScores = async (teamName, updatedMembers) => {
-  teamName = teamName + " Team" // because DB has names like "Graphics Team"
+  teamName = teamName + " Team"; // because DB has names like "Graphics Team"
+
   try {
     const docRef = doc(db, "main", "data-2024");
     const docSnap = await getDoc(docRef);
@@ -50,19 +50,16 @@ export const updateScores = async (teamName, updatedMembers) => {
       const teamData = docSnap.data();
 
       if (teamData.Teams && teamData.Teams[teamName]) {
-        const currentTime = Math.floor(Date.now() / 1000) // Current time in seconds
-        const lastUpdated = teamData.Teams[teamName].updatedAt
-        const daysSinceLastUpdate = (currentTime - lastUpdated) / (60 * 60 * 24);
+        const currentDate = new Date();
+        const currentDay = currentDate.getUTCDate(); // Get current day (UTC)
 
-        const updateIntervalDays = 30
-
-        if (daysSinceLastUpdate < updateIntervalDays) {
-          const remainingDays = Math.ceil(updateIntervalDays - daysSinceLastUpdate);
-          alert(`You can update again in ${remainingDays} day(s).`);
-          return false; // Restrict update if less than 30 days have passed/ Restrict update if less than 30 days have passed
+        if (currentDay !== 20 && currentDay !== 21) {
+          alert("Updates are only allowed on the 20th and 21st of each month.");
+          return false; // Restrict update if not on the allowed dates
         }
 
         // Proceed with updating scores and updatedAt value
+        const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
         teamData.Teams[teamName].members = updatedMembers;
         teamData.Teams[teamName].updatedAt = currentTime;
 
